@@ -1,61 +1,59 @@
-﻿// 1. Constante con el nombre del comercio
+﻿// Etapa 1 : Mostrar nombre
 const string NombreComercio = "KIOSCO EL RECREO";
 
-// Mostrar encabezado
+
 Console.WriteLine($"=== {NombreComercio} ===");
-// 2. Pedir el nombre de quien atiende la caja
+
 Console.Write("Nombre del cajero: ");
 string cajero = Console.ReadLine();
 
-// 3. Saludo con interpolación de cadenas ($)
+
 Console.WriteLine($"Bienvenida/o, {cajero}. Caja abierta.");
 
-// --- ETAPA 2: Cargar un producto ---
-// 1. Pedir el nombre del producto
-Console.Write("Producto: ");
-string? producto = Console.ReadLine();
 
-// 2. Pedir el precio y convertirlo a decimal
-Console.Write("Precio: ");
-decimal precio = decimal.Parse(Console.ReadLine() ?? "0");
+// Etapa 3: Cargar varios productos 
 
-// 3. Mostrar el producto cargado con su precio
-Console.WriteLine($"Agregado: {producto} - ${precio}");
+int cantidadProductos = 0;
+decimal total = 0m;
+string? opcion;
 
+do
+{
+    Console.WriteLine("¿Qué desea hacer?");
+    Console.WriteLine("1 - Cargar un producto");
+    Console.WriteLine("2 - Cerrar la venta");
+    Console.Write("Opción: ");
+    opcion = Console.ReadLine();
 
+    switch (opcion)
+    {
+        case "1":
+            Console.Write("Producto: ");
+            string? producto = Console.ReadLine();
 
+            Console.Write("Precio: ");
+            decimal precio = decimal.Parse(Console.ReadLine() ?? "0");
 
+            // Acumular total y sumar al contador
+            total += precio;
+            cantidadProductos++;
 
+            Console.WriteLine($"Agregado: {producto} - ${precio}");
+            Console.WriteLine();
+            break;
 
+        case "2":
+            Console.WriteLine();
+            Console.WriteLine($"Venta cerrada. Cantidad de productos: {cantidadProductos} | Total: ${total}");
+            break;
 
+        default:
+            Console.WriteLine("Opción inválida. Intente nuevamente.");
+            Console.WriteLine();
+            break;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} while (opcion != "2");
 
 
 
@@ -65,5 +63,40 @@ Console.WriteLine($"Agregado: {producto} - ${precio}");
 
 
 
-// Pausa final para que no se cierre la consola al ejecutar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Console.ReadLine();
