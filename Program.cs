@@ -1,8 +1,14 @@
 ﻿// Etapa 1 : Mostrar nombre
 const string NombreComercio = "KIOSCO EL RECREO";
 
-const decimal DescuentoMayor = 0.10m; // 10%
-const decimal DescuentoMedio = 0.05m; // 5%
+const decimal DescuentoMayor = 0.10m; 
+const decimal DescuentoMedio = 0.05m; 
+
+//Etapa 5 
+
+const decimal DescuentoEfectivo = 0.10m; 
+const decimal RecargoCredito = 0.15m;     
+
 
 Console.WriteLine($"=== {NombreComercio} ===");
 Console.Write("Nombre del cajero: ");
@@ -43,24 +49,68 @@ do
             break;
 
         case "2":
-            decimal porcentajeAplicado = 0m;
+            decimal porcentajeMonto = 0m;
 
             if (subtotal > 50000m)
             {
-                porcentajeAplicado = DescuentoMayor;
+                porcentajeMonto = DescuentoMayor;
             }
             else if (subtotal > 20000m)
             {
-                porcentajeAplicado = DescuentoMedio;
+                porcentajeMonto = DescuentoMedio;
             }
 
-            decimal montoDescuento = subtotal * porcentajeAplicado;
-            decimal totalFinal = subtotal - montoDescuento;
+            decimal montoDescuentoMonto = subtotal * porcentajeMonto;
+            decimal totalConDescuento = subtotal - montoDescuentoMonto;
 
+            string? medioPago;
+            decimal totalFinal = totalConDescuento;
+            bool opcionValida = false;
+
+            do
+            {
+                Console.WriteLine();
+                Console.WriteLine("Medio de pago:");
+                Console.WriteLine("1 - Efectivo");
+                Console.WriteLine("2 - Débito");
+                Console.WriteLine("3 - Crédito");
+                Console.Write("Opción: ");
+                medioPago = Console.ReadLine();
+
+                switch (medioPago)
+                {
+                    case "1": 
+                        decimal descEfectivo = totalConDescuento * DescuentoEfectivo;
+                        totalFinal = totalConDescuento - descEfectivo;
+                        Console.WriteLine($"Descuento por Efectivo (10%): -${descEfectivo}");
+                        opcionValida = true;
+                        break;
+
+                    case "2": 
+                        totalFinal = totalConDescuento;
+                        Console.WriteLine("Pago con Débito: Sin recargo ni descuento.");
+                        opcionValida = true;
+                        break;
+
+                    case "3": 
+                        decimal recCredito = totalConDescuento * RecargoCredito;
+                        totalFinal = totalConDescuento + recCredito;
+                        Console.WriteLine($"Recargo por Crédito (15%): +${recCredito}");
+                        opcionValida = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Medio de pago inválido. Intente nuevamente.");
+                        break;
+                }
+            } while (!opcionValida);
+
+           
             Console.WriteLine();
+            Console.WriteLine("=== RESUMEN DE VENTA ===");
             Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
             Console.WriteLine($"Subtotal: ${subtotal}");
-            Console.WriteLine($"Descuento aplicado ({porcentajeAplicado * 100}%): -${montoDescuento}");
+            Console.WriteLine($"Descuento por monto ({porcentajeMonto * 100}%): -${montoDescuentoMonto}");
             Console.WriteLine($"Total a pagar: ${totalFinal}");
             break;
 
