@@ -1,6 +1,8 @@
 ﻿// Etapa 1 : Mostrar nombre
 const string NombreComercio = "KIOSCO EL RECREO";
 
+// Etapa 4 
+
 const decimal DescuentoMayor = 0.10m; 
 const decimal DescuentoMedio = 0.05m; 
 
@@ -13,11 +15,10 @@ const decimal RecargoCredito = 0.15m;
 Console.WriteLine($"=== {NombreComercio} ===");
 Console.Write("Nombre del cajero: ");
 string cajero = Console.ReadLine();
-
 Console.WriteLine($"Bienvenida/o, {cajero}. Caja abierta.");
 
 
-// Etapa 3 y 4: Cargar varios productos 
+// Etapa 3 a 5: 
 
 int cantidadProductos = 0;
 decimal subtotal = 0m;
@@ -65,6 +66,8 @@ do
 
             string? medioPago;
             decimal totalFinal = totalConDescuento;
+            decimal descuentoPago = 0m;
+            decimal recargoCredito = 0m;
             bool opcionValida = false;
 
             do
@@ -79,23 +82,20 @@ do
 
                 switch (medioPago)
                 {
-                    case "1": 
-                        decimal descEfectivo = totalConDescuento * DescuentoEfectivo;
-                        totalFinal = totalConDescuento - descEfectivo;
-                        Console.WriteLine($"Descuento por Efectivo (10%): -${descEfectivo}");
+                    case "1":
+                        descuentoPago = totalConDescuento * DescuentoEfectivo;
+                        totalFinal = totalConDescuento - descuentoPago;
                         opcionValida = true;
                         break;
 
-                    case "2": 
+                    case "2":
                         totalFinal = totalConDescuento;
-                        Console.WriteLine("Pago con Débito: Sin recargo ni descuento.");
                         opcionValida = true;
                         break;
 
-                    case "3": 
-                        decimal recCredito = totalConDescuento * RecargoCredito;
-                        totalFinal = totalConDescuento + recCredito;
-                        Console.WriteLine($"Recargo por Crédito (15%): +${recCredito}");
+                    case "3":
+                        recargoCredito = totalConDescuento * RecargoCredito;
+                        totalFinal = totalConDescuento + recargoCredito;
                         opcionValida = true;
                         break;
 
@@ -105,13 +105,44 @@ do
                 }
             } while (!opcionValida);
 
-           
+            decimal descuentoTotal = montoDescuentoMonto + descuentoPago;
+
+            // Etapa 6 
             Console.WriteLine();
-            Console.WriteLine("=== RESUMEN DE VENTA ===");
-            Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
-            Console.WriteLine($"Subtotal: ${subtotal}");
-            Console.WriteLine($"Descuento por monto ({porcentajeMonto * 100}%): -${montoDescuentoMonto}");
-            Console.WriteLine($"Total a pagar: ${totalFinal}");
+
+            for (int i = 0; i < 35; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine($"          {NombreComercio}");
+
+            for (int i = 0; i < 35; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine($"Cajero: {cajero}");
+            Console.WriteLine($"Productos: {cantidadProductos}");
+            Console.WriteLine($"Subtotal: {subtotal}");
+            Console.WriteLine($"Descuento: {descuentoTotal}");
+            Console.WriteLine($"Recargo: {recargoCredito}");
+
+            for (int i = 0; i < 35; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine($"TOTAL: {totalFinal}");
+
+            for (int i = 0; i < 35; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
             break;
 
         default:
@@ -121,49 +152,5 @@ do
     }
 
 } while (opcion != "2");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Console.ReadLine();
