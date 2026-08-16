@@ -1,20 +1,20 @@
 ﻿// Etapa 1 : Mostrar nombre
 const string NombreComercio = "KIOSCO EL RECREO";
 
+const decimal DescuentoMayor = 0.10m; // 10%
+const decimal DescuentoMedio = 0.05m; // 5%
 
 Console.WriteLine($"=== {NombreComercio} ===");
-
 Console.Write("Nombre del cajero: ");
 string cajero = Console.ReadLine();
-
 
 Console.WriteLine($"Bienvenida/o, {cajero}. Caja abierta.");
 
 
-// Etapa 3: Cargar varios productos 
+// Etapa 3 y 4: Cargar varios productos 
 
 int cantidadProductos = 0;
-decimal total = 0m;
+decimal subtotal = 0m;
 string? opcion;
 
 do
@@ -34,8 +34,8 @@ do
             Console.Write("Precio: ");
             decimal precio = decimal.Parse(Console.ReadLine() ?? "0");
 
-            // Acumular total y sumar al contador
-            total += precio;
+
+            subtotal += precio;
             cantidadProductos++;
 
             Console.WriteLine($"Agregado: {producto} - ${precio}");
@@ -43,8 +43,25 @@ do
             break;
 
         case "2":
+            decimal porcentajeAplicado = 0m;
+
+            if (subtotal > 50000m)
+            {
+                porcentajeAplicado = DescuentoMayor;
+            }
+            else if (subtotal > 20000m)
+            {
+                porcentajeAplicado = DescuentoMedio;
+            }
+
+            decimal montoDescuento = subtotal * porcentajeAplicado;
+            decimal totalFinal = subtotal - montoDescuento;
+
             Console.WriteLine();
-            Console.WriteLine($"Venta cerrada. Cantidad de productos: {cantidadProductos} | Total: ${total}");
+            Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
+            Console.WriteLine($"Subtotal: ${subtotal}");
+            Console.WriteLine($"Descuento aplicado ({porcentajeAplicado * 100}%): -${montoDescuento}");
+            Console.WriteLine($"Total a pagar: ${totalFinal}");
             break;
 
         default:
